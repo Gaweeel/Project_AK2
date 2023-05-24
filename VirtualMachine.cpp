@@ -55,6 +55,21 @@ void VirtualMachine::exInstruction() {
             memory[SP + 1] = memory[SP + 1] + memory[SP];
             SP++;
             break;
+        case 2: //SUB
+             std::cout << "SUB " << memory[SP + 1] << " " << memory[SP] << std::endl;
+             memory[SP + 1] = memory[SP + 1] - memory[SP];
+             SP++;
+             break;
+        case 3: //DIV
+             std::cout << "DIV " << memory[SP + 1] << " " << memory[SP] << std::endl;
+             memory[SP + 1] = memory[SP + 1] / memory[SP];
+             SP++;
+             break;
+        case 4: //MUL
+            std::cout << "MUL" << memory[SP + 1] << " " << memory[SP] << std::endl;
+             memory[SP + 1] = memory[SP + 1] * memory[SP];
+             SP++;
+             break;
     }
 }
 
