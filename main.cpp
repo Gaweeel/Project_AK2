@@ -12,8 +12,8 @@ int main(int argc, char *argv[]) {
     }
 
     ifstream r(argv[1], ios::binary);
-    i32 i;
-    vector<i32> program;
+    sint i;
+    vector<sint> program;
 
     while (r.read((char*)&i, sizeof(i))) {
         program.push_back(i);

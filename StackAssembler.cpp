@@ -1,15 +1,16 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "lexer.h"
 
-typedef uint32_t i32;
+typedef uint32_t sint;
 
 using namespace std;
 
-vector<i32> compileDataToInstructions(string s);
+vector<sint> compileDataToInstructions(strings s);
 bool integer(string s);
 bool primitive(string s);
-i32 instructionToNumber(string s);
+sint instructionToNumber(string s);
 
 int main(int argc, char *argv[]) {
     
@@ -42,29 +43,29 @@ int main(int argc, char *argv[]) {
     strings lexical = lexer.lex(content);
 
     // compiling lexemes to binary
-    vector<i32> instructions = compileDataToInstructions(lexical);
+    vector<sint> instructions = compileDataToInstructions(lexical);
     
     // writing data to binary file
     ofstream ofile;
     ofile.open("out.bin", ios::binary);
 
-    for(i32 i = 0; i < instructions.size(); i++) {
-        ofile.write(reinterpret_cast<char *>(&instructions[i]), sizeof(i32));
+    for(sint i = 0; i < instructions.size(); i++) {
+        ofile.write(reinterpret_cast<char *>(&instructions[i]), sizeof(sint));
     }
 
     ofile.close();
     return 0;
 }
 
-vector<i32> compileDataToInstructions(string s) {
-    vector<i32> instructions;
+vector<sint> compileDataToInstructions(strings s) {
+    vector<sint> instructions;
 
-    for(i32 i = 0; i < s.size(); i++) {
+    for(sint i = 0; i < s.size(); i++) {
         if (integer(s[i])) {
             instructions.push_back(stoi(s[i]));
         }
         else {
-            i32 instruction = instructionToNumber(s[i]);
+            sint instruction = instructionToNumber(s[i]);
             if (instruction != -1) {
                 instructions.push_back(instruction);
             }
@@ -79,8 +80,8 @@ vector<i32> compileDataToInstructions(string s) {
 
 bool integer(string s) {
 
-    for (i32 i = 0; i < s.size(); i++) {
-        if (digit(s[i]) == false) {
+    for (sint i = 0; i < s.size(); i++) {
+        if (isdigit(s[i]) == false) {
             return false;
         }
     }
@@ -88,7 +89,7 @@ bool integer(string s) {
     return true;
 }
 
-i32 instructionToNumber(string s) {
+sint instructionToNumber(string s) {
     if (s == "+") {
         return 0x40000001;
     }
