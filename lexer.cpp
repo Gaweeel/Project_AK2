@@ -1,7 +1,8 @@
 #include "lexer.h"
 
+using namespace std;
 
-strings Lexer::lex(strings s){
+strings Lexer::lex(std::strings s){
     // vector of strings to store te lexemes found during analysis
     strings strList;
     // index of 's'
@@ -90,7 +91,7 @@ strings Lexer::lex(strings s){
             }
             break;
         case DUMP:
-            if(j<0){
+            if(j>0){
                 lexical[j] = 0;
                 strList.push_back(lexical);
                 j=0;
@@ -117,4 +118,46 @@ if(j>0){
 return  strList;
 
 
+}
+
+// Function that defines a spaces
+bool Lexer::space(char c) {
+    switch(c) {
+        case '\n':
+        case '\r':
+        case '\t':
+        case '\f':
+        case '\v':
+        case ' ':
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool Lexer::group(char c) {
+    start_char = c;
+    switch(c) {
+        case '(':
+            stop_char = ')';
+            return true;
+        case ')':
+            return true;
+        case '"':
+            stop_char = '"';
+            return true;
+        default:
+            return false;
+    }
+}
+
+bool Lexer::special(char c) {
+    switch(c) {
+        case '[':
+            return true;
+        case ']':
+            return true;
+        default:
+            return false;
+    }
 }

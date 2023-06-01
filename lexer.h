@@ -7,7 +7,7 @@
 typedef uint8_t byte;
 typedef std::vector<std::string> strings;
 
-enum State:byte{
+enum State:byte {
     BEGINING, //0
     READCH,   //1
     READBL,   //2
@@ -23,7 +23,7 @@ class Lexer{
     bool space(char  c);
     bool group(char c);
     public:
-    strings lex(strings txt);
+    strings lex(std::string txt);
 
 };
 

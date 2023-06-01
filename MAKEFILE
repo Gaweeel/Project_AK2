@@ -1,0 +1,15 @@
+CFLAGS=-std=c++11
+
+all: StackAssembler
+
+StackAssembler: StackAssembler.o lexer.o
+	$(CXX) $(CFLAGS) StackAssembler.o lexer.o -o $@
+
+lexer.o lexer.h lexer.cpp
+	$(CXX) $(CFLAGS) -c lexer.cpp
+
+StackAssembler.o: lexer.h StackAssembler.cpp
+	$(CXX) $(CFLAGS) -c StackAssembler.cpp
+
+clean:
+	rm -f StackAssembler *.o *.bin
