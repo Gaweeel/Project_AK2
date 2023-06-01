@@ -1,8 +1,6 @@
 #include "lexer.h"
 
-using namespace std;
-
-strings Lexer::lex(std::strings s){
+strings Lexer::lex(std::string s){
     // vector of strings to store te lexemes found during analysis
     strings strList;
     // index of 's'
@@ -21,97 +19,119 @@ strings Lexer::lex(std::strings s){
 
 
 
-    while(i<len){
+    while (i < len) {
         switch (currentState)
         {
         case BEGINING:
-        if(space(s[i])){
+        if (space(s[i])) {
             currentState = JUMP;
-        }else if(group(s[i])){
-            if(s[i] ==""){
+        }
+        else if (group(s[i])) {
+            if (s[i] == '"') {
                 lexical[j++] = s[i++];
             }
             currentState = READBL;
-        }else if(s[i] == "@" && s[i+1] == "@"){
+        }
+        else if(s[i] == '@' && s[i+1] == '@') {
             currentState = COMM;
-            i+=2;
-        }else{
+            i += 2;
+        }
+        else{
             currentState = READCH;
         }
             break;
+
         case READCH:
-            if(space(s[i])){
+            if (space(s[i])) {
                 currentState = DUMP;
-            }else if( s[i] =='\\') {
-                i+=2;
-            } else if(group(s[i])){
-                if(s[i] == "'"){
+            }
+            else if ( s[i] == '\\') {
+                i += 2;
+            } 
+            else if (group(s[i])) {
+
+                // Should be corrected - if statement: s[i] == '''
+                if (s[i] == ' '){
                     lexical[j] = s[i];
                     j++;
                     i++;
                 }
                 currentState = READBL;
-            }else if(special(s[i])){
-                if(j == 0){
+            }
+            else if (special(s[i])) {
+                if (j == 0) {
                     lexical[j] = s[i];
                     j++;
                     i++;
                 }
                 currentState = DUMP;
-            }else if(s[i] == "@" && s[i+1] == "@"){
+            } 
+            else if (s[i] == '@' && s[i+1] == '@') {
                 currentState = COMM;
                 i+=2;
-            }else{
+            }
+            else {
                 lexical[j] = s[i];
                 j++;
                 i++;
             }
             break;
+
         case READBL:
-            if(s[i] == start_char && s[i]!="'"){
+             // Should be corrected - if statement: s[i] == '''
+            if (s[i] == start_char && s[i] != ' '){
                 balance++;
                 lexical[j++] = s[i++];
-            }else if(s[i] == stop_char){
+            }
+            else if(s[i] == stop_char) {
                 lexical[j++] = s[i++];
-                if(--balance <=0){
+                if(--balance <= 0) {
                     currentState = DUMP;
                 }
-            }else if(stop_char == '"' && s[i] == "\\"){
+            }
+            else if (stop_char == '"' && s[i] == '\\') {
                 i=i+2;
-            }else{
+            }
+            else {
                 lexical[j++] = s[i++];
-
             }
             break;
+
         case JUMP:
-            if(space(s[i])){
+            if (space(s[i])) {
                 i++;
-            }else{
+            }
+            else {
                 currentState = READCH;
             }
             break;
+
         case DUMP:
-            if(j>0){
+            if(j > 0) {
                 lexical[j] = 0;
                 strList.push_back(lexical);
                 j=0;
             }
             currentState = BEGINING;
             break;
+
         case COMM:
-            if(s[i]!='\n'){
+            if (s[i]!='\n') {
                 i++;
-            } else{
+            } 
+            else {
                 currentState = READCH;
             }
             break;
+
         case END:
             i = len;
             break;
         }
 
     }
-if(j>0){
+
+if (j > 0) {
     lexical[j] = 0;
     strList.push_back(lexical);
 }

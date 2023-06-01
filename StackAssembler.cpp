@@ -73,6 +73,7 @@ vector<i32> compileDataToInstructions(string s) {
             }
         }
     }
+    instructions.push_back(0x40000000); // program won't stuck on an infinite loop
     return instructions;
 }
 
@@ -88,7 +89,7 @@ bool integer(string s) {
 }
 
 i32 instructionToNumber(string s) {
-    if (s == '+') {
+    if (s == "+") {
         return 0x40000001;
     }
     else if (s == "-") {
