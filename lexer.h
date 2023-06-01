@@ -1,13 +1,13 @@
 #ifndef PROJECT_AK2_LEXER_H
 #define PROJECT_AK2_LEXER_H
 
-#include<iostream>
+#include <iostream>
 #include <vector>
 
-typedef uint8_t byte;
+typedef uint8_t Byte;
 typedef std::vector<std::string> strings;
 
-enum State:byte {
+enum State : Byte {
     BEGINING, //0
     READCH,   //1
     READBL,   //2
@@ -20,8 +20,9 @@ enum State:byte {
 class Lexer{
     char start_char, stop_char;
     bool special(char c);
-    bool space(char  c);
+    bool space(char c);
     bool group(char c);
+
     public:
     strings lex(std::string txt);
 
