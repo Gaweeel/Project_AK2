@@ -96,10 +96,10 @@ sint instructionToNumber(string s) {
     else if (s == "-") {
         return 0x40000002;
     }
-    else if (s == "*") {
+    else if (s == "/") {
         return 0x40000003;
     }
-    else if (s == "/") {
+    else if (s == "*") {
         return 0x40000004;
     }
 
