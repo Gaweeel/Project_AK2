@@ -15,14 +15,4 @@ add_executable(
         src/stack_vm/stack_vm.h
         src/stack_vm/main.cpp
 )
-
-include_directories(src/sasm)
-add_subdirectory(src/sasm)
-
-include_directories(src/stack_vm)
-add_subdirectory(src/stack_vm)
-
-target_link_libraries(sasm src/sasm)
-target_link_libraries(stack_vm src/stack_vm)
-
 add_subdirectory(Google_tests)
