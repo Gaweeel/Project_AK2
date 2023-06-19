@@ -67,7 +67,7 @@ void VirtualMachine::exInstruction() {
              SP++;
              break;
         case 4: //MUL
-            std::cout << "MUL" << memory[SP + 1] << " " << memory[SP] << std::endl;
+            std::cout << "MUL " << memory[SP + 1] << " " << memory[SP] << std::endl;
              memory[SP + 1] = memory[SP + 1] * memory[SP];
              SP++;
              break;
@@ -86,7 +86,7 @@ void VirtualMachine::run() {
         fetch();
         decode();
         execute();
-        std::cout << "SP:" << memory[SP] << std::endl;
+        std::cout << "SP: " << memory[SP] << std::endl;
     }
 }
 
